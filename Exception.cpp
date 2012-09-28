@@ -5,6 +5,8 @@
 
 #include "Exception.h"
 
+using namespace E;
+
 Exception::Exception() {}
 
 Exception::Exception(std::string message, ExceptionCriticity criticity)
@@ -12,6 +14,7 @@ Exception::Exception(std::string message, ExceptionCriticity criticity)
     _message = message;
     _criticity = criticity;
     _innerException = 0;
+    _innerStdException = 0;
 
     this->generateStackTrace();
     _method = this->findMethod();
@@ -20,6 +23,7 @@ Exception::Exception(std::string message, ExceptionCriticity criticity)
 Exception::Exception(std::string message, Exception* innerException) {
     _message = message;
     _innerException = innerException;
+    _innerStdException = 0;
     if (innerException)
         _criticity = innerException->getCriticity();
     else
@@ -31,8 +35,8 @@ Exception::Exception(std::string message, Exception* innerException) {
 
 Exception::Exception(std::string message, std::exception* innerException) {
     _message = message;
-    _innerException = innerException;
-
+    _innerException = 0;
+    _innerStdException = innerException;
     _criticity = Alert;
 
     this->generateStackTrace();
@@ -43,8 +47,12 @@ std::string Exception::getMessage() {
     return _message;
 }
 
-void* Exception::getInnerException() {
+Exception* Exception::getInnerException() {
     return _innerException;
+}
+
+std::exception* Exception::getInnerStdException() {
+    return _innerStdException;
 }
 
 std::vector<std::string> Exception::getStackTrace() {
