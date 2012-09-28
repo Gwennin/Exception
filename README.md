@@ -5,6 +5,7 @@ A simple C++ Exception class.
 
 > Note: To add a fully support of theses exceptions add the '-rdynamic' option to you linker settings on your finnal project.
 
+
 > Note 2: Only libc friends/compilers can build this project. 'backtace' & 'backtrace_symbols' functions are defined by libc. 
 
 ##Using
