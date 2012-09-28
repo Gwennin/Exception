@@ -10,3 +10,8 @@
 *.lai
 *.la
 *.a
+
+# I'm lazy, so I use Codeblocks
+*.cbp
+*.depend
+obj
